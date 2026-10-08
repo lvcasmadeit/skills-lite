@@ -14,19 +14,19 @@ Turn one approved source into dependency-aware implementation tickets in `TODO.m
 2. Split work into tracer-bullet vertical slices: each ticket delivers a narrow, complete behavior or contract that can be implemented and verified independently. Avoid layer-only tickets unless a real technical dependency requires them.
 3. For a wide mechanical refactor that cannot land incrementally, use expand–migrate–contract: add compatible support, migrate callers/data, then remove obsolete support. Do not use this sequence for ordinary feature work.
 4. Add only genuine blocker edges: the dependent ticket cannot be built or meaningfully verified until the blocker is complete. Never add ordering-only dependencies. Blockers must be existing or proposed Tickets.
-5. For each proposed ticket, show its title, parent Spec path/title, blocker IDs (or `None`), user-facing outcome, and concrete acceptance criteria.
+5. For each ticket, show its title, parent Spec, `Belongs to` parent Ticket ID (or `None`), blockers, user-facing outcome, and concrete acceptance criteria.
 6. Show the whole proposed ticket set, proposed IDs, and dependency graph. Ask the user to review source alignment, granularity, dependencies, and criteria. Iterate and show the revised set until explicitly approved. Make no file changes before approval.
 
 ## Validate and write
 
 1. After approval, allocate stable IDs in dependency order, following the highest numeric suffix in the current board; never reuse or renumber IDs. Re-read the latest `TODO.md` immediately before writing and recalculate. If IDs or dependencies changed, show the updated proposal and obtain approval again.
-2. Before any write, validate that all issue IDs are unique, every blocker ID exists and identifies a Ticket, and the combined dependency graph is acyclic. Validate proposed edges against existing cards as well as within the proposal. If invalid, revise the graph and validate again.
+2. Before writing, validate unique IDs, every blocker references a Ticket, every non-`None` `Belongs to` reference resolves to one existing or proposed Ticket, and both dependency graphs are acyclic. Reject self-links and ambiguous/missing parents. If invalid, revise and validate again.
 3. Append one card per approved ticket to its status column. New cards go in `## Ready` when unblocked, or `## Blocked` when they have incomplete blockers. Use this format:
 
    ```markdown
    ### I-001 — <ticket title>
-   **Parent:** <Spec path or title>
-   **Blocked by:** None | comma-separated I-... IDs
+   **Parent Spec:** <Spec path or title>
+   **Belongs to ticket:** None | I-... parent Ticket ID
    **What to build:** <user-facing outcome>
 
    **Acceptance criteria:**
@@ -38,4 +38,4 @@ Turn one approved source into dependency-aware implementation tickets in `TODO.m
 
 ## Board conventions
 
-IDs are stable `I-001`, `I-002`, and upward; allocate after the highest numeric suffix. Column position is the only status: move a card, never duplicate it. `Ready` requires every blocker to be Done; `Blocked` means at least one blocker is not. Use comma-separated blocker IDs. Move a card to `Done` only after every acceptance criterion passes.
+IDs are stable `I-001`, `I-002`, and upward; allocate after the highest numeric suffix. `Belongs to ticket` identifies the parent/grouping Ticket and is not a blocker. Column position is the only status: move cards, never duplicate them. `Ready` requires every blocker to be Done; `Blocked` means at least one blocker is not. Blocker IDs are comma-separated. Move cards to `Done` only after every acceptance criterion passes.

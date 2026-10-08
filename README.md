@@ -46,11 +46,12 @@ For a custom or unsupported harness, copy any desired `skills/<skill-name>/` dir
 ## Done
 ```
 
-Each ticket card includes its stable `I-NNN` ID, title, parent Spec reference, comma-separated blocker IDs (or `None`), user-facing outcome, and acceptance criteria:
+Each card has a stable `I-NNN` ID and title, Parent Spec reference, `Belongs to ticket` parent ID (or `None`), blockers, outcome, and acceptance criteria. `Belongs to ticket` groups the card; it does not block it.
 
 ```markdown
 ### I-001 — <title>
-**Parent:** <spec path or title>
+**Parent Spec:** <spec path or title>
+**Belongs to ticket:** None | I-...
 **Blocked by:** None
 **What to build:** <user-visible outcome>
 **Acceptance criteria:**

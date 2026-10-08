@@ -12,7 +12,7 @@ Implement exactly one explicitly named Ticket from the current `TODO.md`.
 
 1. Require an issue ID; ask if absent. Never infer one.
 2. Read the board and repository instructions. Find the ID exactly once as a Ticket. Missing, duplicate, malformed, or `Done` tickets are read-only failures.
-3. Validate its Parent Spec reference and every blocker. The parent must resolve unambiguously; blockers must resolve uniquely to Tickets in `## Done`. If the parent is invalid or any blocker is missing/incomplete, make no changes and report why. If a card in `## Blocked` has become unblocked, move it to `## Ready`; if a `## Ready` card has an incomplete blocker, stop and report the inconsistent state.
+3. Validate the Parent Spec reference, required `Belongs to ticket` field, and every blocker. The Spec must resolve unambiguously. `Belongs to ticket` must be `None` or resolve uniquely to a Ticket; it is grouping, not a blocker. Each blocker must resolve uniquely to a Ticket in `## Done`. If any reference is missing, ambiguous, or invalid, stop read-only and report why. If a card in `## Blocked` has become unblocked, move it to `## Ready`; if a `## Ready` card has an incomplete blocker, stop and report the inconsistent state.
 4. Confirm concrete, unambiguous acceptance criteria. Ask focused questions if needed.
 
 ## Implement and verify
